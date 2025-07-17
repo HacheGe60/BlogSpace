@@ -20,14 +20,14 @@ document.querySelector('form').addEventListener('submit', e => {
     e.preventDefault();
     const postTitle = document.querySelector('#post-title').value;
     const postBody = document.querySelector('#post-body').value;
-    const newPost = {
+    const data = {
         title: postTitle,
         body: postBody,
     };
     fetch('https://apis.scrimba.com/jsonplaceholder/posts',
         {
             method: 'POST',
-            body: JSON.stringify(newPost),
+            body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -36,5 +36,14 @@ document.querySelector('form').addEventListener('submit', e => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
+
+            postHtml = `
+        <h2 class="post-title">${data.title}</h2>
+        <p class="post-body">${data.body}</p>
+        <hr>
+         `;
+            document.querySelector('#blog-list').innerHTML = postHtml + document.querySelector('#blog-list').innerHTML;
         });
+    data.title.value = '';
+    data.body.value = '';
 });
