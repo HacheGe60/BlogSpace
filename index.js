@@ -20,6 +20,21 @@ document.querySelector('form').addEventListener('submit', e => {
     e.preventDefault();
     const postTitle = document.querySelector('#post-title').value;
     const postBody = document.querySelector('#post-body').value;
-    const post = { title: postTitle, body: postBody };
-    console.log(post);
+    const newPost = {
+        title: postTitle,
+        body: postBody,
+    };
+    fetch('https://apis.scrimba.com/jsonplaceholder/posts',
+        {
+            method: 'POST',
+            body: JSON.stringify(newPost),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+    )
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        });
 });
