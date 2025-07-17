@@ -1,5 +1,3 @@
-
-
 fetch('https://apis.scrimba.com/jsonplaceholder/posts')
     .then(response => response.json())
     .then(data => {
@@ -18,3 +16,10 @@ fetch('https://apis.scrimba.com/jsonplaceholder/posts')
         document.querySelector('#blog-list').innerHTML = postHtml;
     });
 
+document.querySelector('form').addEventListener('submit', e => {
+    e.preventDefault();
+    const postTitle = document.querySelector('#post-title').value;
+    const postBody = document.querySelector('#post-body').value;
+    const post = { title: postTitle, body: postBody };
+    console.log(post);
+});
