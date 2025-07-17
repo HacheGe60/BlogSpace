@@ -1,19 +1,22 @@
-fetch('https://apis.scrimba.com/jsonplaceholder/posts')
-    .then(response => response.json())
-    .then(data => {
-        const postsArr = data.slice(0, 5);
-        let postHtml = '';
-        // console.log(postsArr);
-        postsArr.forEach(post => {
-            // console.log(post);
-            // console.log(post.title);
-            postHtml += `
+let postsArray = [];
+
+function renderPosts() {
+    let postHtml = '';
+    postsArray.forEach(post => {
+        postHtml += `
             <h2 class="post-title">${post.title}</h2>
             <p class="post-body">${post.body}</p>
             <hr>
              `;
-        });
-        document.querySelector('#blog-list').innerHTML = postHtml;
+    });
+    document.querySelector('#blog-list').innerHTML = postHtml;
+}
+
+fetch('https://apis.scrimba.com/jsonplaceholder/posts')
+    .then(response => response.json())
+    .then(data => {
+        postsArray = data.slice(0, 5);
+        renderPosts();
     });
 
 document.querySelector('form').addEventListener('submit', e => {
@@ -35,14 +38,8 @@ document.querySelector('form').addEventListener('submit', e => {
     )
         .then(response => response.json())
         .then(data => {
-            console.log(data);
-
-            postHtml = `
-        <h2 class="post-title">${data.title}</h2>
-        <p class="post-body">${data.body}</p>
-        <hr>
-         `;
-            document.querySelector('#blog-list').innerHTML = postHtml + document.querySelector('#blog-list').innerHTML;
+            postsArray.unshift(data);
+            renderPosts();
         });
     data.title.value = '';
     data.body.value = '';
