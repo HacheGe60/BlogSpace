@@ -15,6 +15,6 @@ fetch('https://apis.scrimba.com/jsonplaceholder/posts')
             <hr>
              `;
         });
-        document.querySelector('#container').innerHTML = postHtml;
+        document.querySelector('#blog-list').innerHTML = postHtml;
     });
 
